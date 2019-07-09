@@ -1,6 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import png from './trans-book.png'
 import './App.css';
 
 class App extends React.Component {
@@ -32,6 +30,7 @@ class App extends React.Component {
     fetch("https://www.googleapis.com/books/v1/volumes?q=" + this.state.search)
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         this.setState({
           books: res.items
         })
@@ -42,9 +41,12 @@ class App extends React.Component {
   render() {
 
     const booksMapped = this.state.books.map((book, i) => (
-    <div key={i} onClick={this.addToLibrary}>
+    <div key={i} className='book' onClick={this.addToLibrary}>
       <p>{book.volumeInfo.title}</p>
-      <img src={book.volumeInfo.imageLinks.thumbnail} alt='thumbnail'/>
+
+        <div className='image-container'><a href={book.volumeInfo.infoLink}><img src={book.volumeInfo.imageLinks.thumbnail} alt='thumbnail' /></a>
+          <a href={book.volumeInfo.infoLink}><div className='after'>{book.volumeInfo.description.substr(0,250)}</div></a>
+        </div>
     </div>))
 
     return (
