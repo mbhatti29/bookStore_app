@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -23,6 +24,7 @@ class App extends React.Component {
     })
   }
 
+  
   searchBookInput = (event) => {
     event.preventDefault()
 
@@ -44,17 +46,18 @@ class App extends React.Component {
     <div key={i} className='book' onClick={this.addToLibrary}>
       <p>{book.volumeInfo.title}</p>
 
-        <div className='image-container'><a href={book.volumeInfo.infoLink}><img src={book.volumeInfo.imageLinks.thumbnail} alt='thumbnail' /></a>
+        <div className='image-container'><a href={book.volumeInfo.infoLink}><img src={(book.volumeInfo.imageLinks.thumbnail) ? book.volumeInfo.imageLinks.thumbnail : 'book'} alt='thumbnail' /></a>
           <a href={book.volumeInfo.infoLink}><div className='after'>{book.volumeInfo.description.substr(0,250)}</div></a>
         </div>
     </div>))
 
     return (
-      <div>
+      <div id="fullContainer">
         <form onSubmit={this.searchBookInput}>
           <input onChange={this.searchValue}></input>
-          <button>Submit</button>
+          <button>Search</button>
         </form>
+        {/* <h2>{this.state.search}</h2> */}
         <div className='bookDiv'>
           {booksMapped}
         </div>
